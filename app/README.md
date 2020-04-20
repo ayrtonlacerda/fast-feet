@@ -50,5 +50,5 @@ para correto funcionamento do app, o servirdor tem que esta rodando na porta loc
 - relatar um problema referente a encomenda
 
 ![signin](/img/signin2.png) ![dashboard2](/img/dashboard2.png) ![perfil](/img/perfil.png)
-![details](/img/details.png) ![send](/img/send.png) ![problems](/img/problems.png)
+![details](/img/details.png) ![send](/img/send.png) ![problems](/img/problemsApp.png)
 ![error](/img/error.png)
