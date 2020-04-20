@@ -8,13 +8,7 @@ para rodar esse projeto local você precisa ter instalado
 - Yarn
 ```
 
-Clone o repositorio:
-
-```
-git clone https://github.com/paulohlips/gobarber
-```
-
-Detro da pasta do repositorio faça o comando:
+Clone o repositorio dentro da pasta ```back-end``` do repositorio execute o comando:
 ```
 yarn
 ```

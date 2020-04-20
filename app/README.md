@@ -9,13 +9,7 @@ para rodar esse projeto local você precisa ter instalado
 - xcode 11
 ```
 
-Clone o repositorio:
-
-```
-git clone
-```
-
-Detro da pasta do repositorio execute o comando:
+Cloene o repositorio e dentro da pasta ```app``` do repositorio execute o comando:
 ```
 yarn
 ```

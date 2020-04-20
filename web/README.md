@@ -8,13 +8,7 @@ para rodar esse projeto local você precisa ter instalado
 - Yarn
 ```
 
-Clone o repositorio:
-
-```
-git clone
-```
-
-Detro da pasta do repositorio faça o comando:
+Clone o repositorio e dentro da pasta ```web```do repositorio faça o comando:
 ```
 yarn
 ```
