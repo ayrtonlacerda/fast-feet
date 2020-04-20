@@ -1,29 +1,27 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Container } from './styles';
 import { 
-  Container,
-  Title,
-  SearchandButton,
-} from './styles';
-import { InputSearch, Tables, Button, Loader, Modal } from '../../components';
+  Tables,
+  Loader, 
+  Modal, 
+  HeaderPage,
+} from '../../components';
 import { useFetch } from '../../Hooks';
 import { useModal } from '../../zustand';
 import Endpoint from '../../services';
 
 const ListOrders = () => {
   const { show } = useModal();
-  const [data, loading] = useFetch(Endpoint.getOrders);
+  const [query, setQuery] = useState();
+  const [data, loading] = useFetch(Endpoint.getOrders, query);
+  
   return (
   <Container showModal={show} h={ data && data.length >= 8 ? data.length : 0  }>
-    <Title>
-      Gerenciado Encomendas
-    </Title>
-    <SearchandButton>
-      <InputSearch placeholder='Buscar por encomendas' />
-      <Link to='/form/orders' style={{ textDecoration: 'none' }}>
-        <Button text='CADASTRAR' iconPlus />
-      </Link>
-    </SearchandButton> 
+    <HeaderPage
+      handleSearch={setQuery}
+      page='order' 
+      title="Gerenciando Encomendas" 
+    />
     {loading && !data && <Loader />}   
     <Tables data={data || []} table='orders' />
     <Modal />

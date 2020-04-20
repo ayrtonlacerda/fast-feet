@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 /* eslint-disable react-native/no-raw-text */
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback, useState } from 'react';
 import { format } from 'date-fns';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { Header, TitleIcon } from 'components';
+import { Header, TitleIcon, InfoModal } from 'components';
 import {
   Container,
   MainContainer,
@@ -23,8 +23,9 @@ import {
 
 const DetailOrder = () => {
   const route = useRoute();
+  const [error, setError] = useState(false);
   const {
-    product, createdAt, recipient, start_date, end_date, canceled_at, id,
+    product, recipient, start_date, end_date, canceled_at, id,
   } = route.params;
   console.log({ route });
   const navigation = useNavigation();
@@ -42,6 +43,14 @@ const DetailOrder = () => {
     }
     return stt;
   }, [start_date, end_date, canceled_at]);
+
+  const handleConfirm = useCallback(() => {
+    if (start_date) {
+      navigation.navigate('Confirm', { id, product });
+    } else {
+      setError(true);
+    }
+  }, []);
 
   return (
     <Container>
@@ -92,13 +101,22 @@ const DetailOrder = () => {
             <TextButton>Problemas</TextButton>
           </Button>
           <Divider />
-          <Button onPress={() => navigation.navigate('Confirm', { id, product })}>
+          <Button onPress={handleConfirm}>
             <CheckIcon />
             <TextButton>Confirmar</TextButton>
             <TextButton>Entrega</TextButton>
           </Button>
         </ButtonContainer>
       </MainContainer>
+      <InfoModal
+        error
+        title="Error!"
+        show={error}
+        textButton="OK"
+        handleClose={() => setError(false)}
+        handleClickButton={() => setError(false)}
+        msg="Voce não pode cofirma entrega sem retirar produto"
+      />
     </Container>
   );
 };

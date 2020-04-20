@@ -10,6 +10,7 @@ import {
   ListRecipients,
   ListDeliverymans,
   FormOrders,
+  FormWithdraw,
   FormRecipients,
   FormDeliverymans,
 } from '../screens';
@@ -79,6 +80,16 @@ export default function Routers() {
           component={() => (
             <WrapperContainer>
               <FormRecipients />
+            </WrapperContainer>
+          )} 
+        />
+        <Route 
+          path='/form/Withdraw' 
+          exact 
+          isPrivate
+          component={() => (
+            <WrapperContainer>
+              <FormWithdraw />
             </WrapperContainer>
           )} 
         />

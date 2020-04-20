@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 import { Deliveryman, File } from '../models';
 
 class DeliverymanController {
@@ -52,11 +53,15 @@ class DeliverymanController {
   }
 
   async index(req, res) {
-    const { query } = req;
-    console.log({ query });
-    // add filters for shearch?
+    let filter = {};
+    if (req.query.deliveryman) {
+      filter = {
+        name: { [Op.iLike]: `%${req.query.deliveryman}%` },
+      };
+    }
+
     const deliverymans = await Deliveryman.findAll({
-      where: {},
+      where: filter,
       include: [
         { model: File, as: 'avatar', attributes: ['name', 'path', 'url'] },
       ],

@@ -17,6 +17,7 @@ const AvatarInput = ({ handleOnChange, file }) => {
 
   const handleChange = async (event) => {
     const data = new FormData();
+    console.log({ fileEvente: event.target.files[0] })
     data.append('file', event.target.files[0]);
     try {
       const response = await Endpoints.postFile(data);

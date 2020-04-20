@@ -3,7 +3,7 @@ import { colors, metrics } from '../../styles';
 
 const customMargin = {
   problems: 60,
-  orders: 80,
+  orders: 100,
   recipients: 40,
   deliverymans: 60,
 }

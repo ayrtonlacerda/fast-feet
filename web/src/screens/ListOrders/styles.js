@@ -25,6 +25,13 @@ export const SearchandButton = styled.div`
   align-items: center;
 `;
 
+export const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 320px;
+`;
+
 export const Title = styled.p`
   font-size: 24px;
   font-family: Roboto-Bold;

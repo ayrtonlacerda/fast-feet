@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Title } from './styles';
+import Loader from '../Loader';
 
 const Input = ({
-  text, colorButton, doubleMargin, handleClick, margin,
+  text, colorButton, doubleMargin, handleClick, margin, loading,
 }) => (
   <Container
     doubleMargin={doubleMargin}
@@ -11,7 +12,7 @@ const Input = ({
     onPress={handleClick}
     margin={margin}
   >
-    <Title>{text}</Title>
+    {loading ? <Loader white /> : <Title>{text}</Title>}
   </Container>
 );
 

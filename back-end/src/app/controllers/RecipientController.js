@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 import Recipiente from '../models/Recipient';
 // import User from '../models/User';
 
@@ -66,7 +67,6 @@ class RecipientController {
   async update(req, res) {
     try {
       const { id: idParam } = req.params;
-      console.log({ idParam });
       const schema = Yup.object().shape({
         name: Yup.string(),
         street: Yup.string(),
@@ -84,7 +84,6 @@ class RecipientController {
       }
 
       const recipient = await Recipiente.findByPk(idParam);
-      console.log({ recipient });
       if (!recipient) {
         return res.status(400).json({
           mensage: 'Esse destinatario não existe',
@@ -120,7 +119,20 @@ class RecipientController {
   }
 
   async index(req, res) {
-    const recipients = await Recipiente.findAll({});
+    let filter = {};
+    if (req.query.recipient) {
+      filter = {
+        name: { [Op.iLike]: `%${req.query.recipient}%` },
+      };
+    }
+
+    if (req.query.cep) {
+      filter = {
+        cep: req.query.cep,
+      };
+    }
+
+    const recipients = await Recipiente.findAll({ where: filter });
     return res.json(recipients);
   }
 }

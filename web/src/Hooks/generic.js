@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { toast } from 'react-toastify';
 
 export const useHandleFetch = (listen) => {
   const [response, setResponse] = useState({
@@ -10,18 +11,20 @@ export const useHandleFetch = (listen) => {
     success: null,
     error: null,
   }), [])
-  const handleFecth = useCallback(async (fetch, params, id) => {
-    console.log({ fetch, params, id })
+  const handleFecth = useCallback(async (fetch, params, idOrQuery) => {
+   
     setLoading(true)
     try {
-      const reponse = await fetch({ ...params }, id);
+      const reponse = await fetch({ ...params }, idOrQuery);
       console.log({ reponse })
+      toast.info('Tudo certo! ;)')
       setResponse({
         success: reponse.data,
         error: false,
       })
     } catch (error) {
       console.log({ error })
+      toast.error('Não foi possivel, tente novamente')
       setResponse({
         success: false,
         error: error,

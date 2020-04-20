@@ -1,15 +1,17 @@
 import React, { useState, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Container, Title, MenuContainer, Button, TextButton } from './styles';
-import { MdEdit, MdVisibility, MdDeleteForever} from 'react-icons/md';
+import { MdEdit, MdVisibility, MdDeleteForever, MdPlayForWork } from 'react-icons/md';
 import { useHandleFetch } from '../../Hooks';
 import { colors } from '../../styles';
-import history from '../../router/history';
+//import history from '../../router/history';
 import { useModal } from '../../zustand';
 import Endpoint from '../../services';
 
 const atr = {
   problems: {
     route: '/form/problems',
+    cancel: Endpoint.putProblems,
   },
   orders: {
     route: '/form/orders',
@@ -27,13 +29,13 @@ const atr = {
 const Options = ({ 
   header, tables, item
 }) => {
+  const history = useHistory();
   const [handleFecth, loading, response, resetFetch] = useHandleFetch();
   const { setShow, setContent } = useModal();
   const [open, setOpen] = useState(false);
 
   const handleEdit = useCallback(() => {
     history.push(atr[tables].route, { item })
-    window.location.reload();
   }, [])
 
   const handleShow = useCallback(() => {
@@ -43,8 +45,20 @@ const Options = ({
 
   const handleDelete = useCallback(() => {
     // deletar entregador so se nao tiver entrega
-    handleFecth(atr[tables].delete, {}, item.id);
-    window.location.reload();
+    if (tables === 'problems') {
+      handleFecth(atr[tables].cancel, {
+        canceled_at: new Date(),
+      }, item.id);
+    } else {
+      handleFecth(atr[tables].delete, {}, item.id);      
+    }
+   window.location.reload(); // ???
+   
+  }, [item])
+
+  const handleWithdraw = useCallback(() => {
+    history.push('/form/withdraw', { item })
+    //window.location.reload();
   }, [item])
 
   return (
@@ -55,8 +69,21 @@ const Options = ({
       <Title header={header}>...</Title>
       {open && (
         <MenuContainer  tables={tables}>
+          {(tables === 'orders') && (
+            <Button border onClick={handleWithdraw}>
+              <MdPlayForWork 
+                size={23}
+                color={colors.GREEN}
+                style={{
+                  marginLeft: -5,
+                  marginRight: 10
+                }}
+              />
+              <TextButton>Retirar</TextButton>
+            </Button>
+          )}
           {(tables === 'orders' || tables === 'problems') && (
-            <Button border big={tables === 'problems'} onClick={handleShow}>
+            <Button border onClick={handleShow}>
               <MdVisibility 
                 size={15}
                 color={colors.PURPLE}

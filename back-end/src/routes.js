@@ -28,6 +28,8 @@ routes.post('/problems', ProblemController.store);
 
 routes.post('/files', upload.single('file'), FileController.store);
 routes.get('/files/:file', FileController.show);
+
+routes.put('/orders/:id', OrderController.update);
 // users routes
 routes.post('/sessions', SessionController.store);
 routes.get('/sessions/:email', SessionController.show);
@@ -55,7 +57,6 @@ routes.get('/orders', OrderController.index);
 routes.get('/orders/problems', ProblemController.index);
 routes.get('/orders/:id', OrderController.show);
 routes.post('/orders', OrderController.store);
-routes.put('/orders/:id', OrderController.update);
 routes.delete('/orders/:id', OrderController.destroy);
 
 export default routes;
