@@ -2,14 +2,11 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { 
   Container,
-  Title,
   MainContainer,
-  TitleContainer,
-  ButtonsContainer,
 } from './styles';
 import AvatarInput from './AvatarInput';
-import { Input, Button, Loader } from '../../components';
-import { useValidator, useHandleFetch, useFormData } from '../../Hooks';
+import { Input, Loader, HeaderPage } from '../../components';
+import { useFormData } from '../../Hooks';
 import Endpoint from '../../services';
 
 const schemaStore = {
@@ -50,30 +47,24 @@ const FormDeliverymans = () => {
   }, []);
 
   const [handleOnSave, loading, error] = useFormData({
-    email,
-    name,
-    avatar_id: file && file.id,
-   }, Endpoint.postDeliverymans, Endpoint.putDeliverymans, item, schemaStore, schemaPut);
+      email,
+      name,
+      avatar_id: file && file.id,
+    }, 
+    Endpoint.postDeliverymans, 
+    Endpoint.putDeliverymans, 
+    item, 
+    schemaStore, 
+    schemaPut
+   );
 
   return (
     <Container>
-      <TitleContainer>
-        <Title>Cadastro de Entregadores</Title>
-        <ButtonsContainer>
-          <Button 
-            iconBack 
-            text='VOLTAR' 
-            grey 
-            goBack
-          />
-          <Button
-            iconCheck
-            text='SALVAR'
-            leftMangin 
-            handleClick={handleOnSave}
-          />
-        </ButtonsContainer>
-      </TitleContainer>
+     <HeaderPage 
+        title="Cadastro de Entregadores" 
+        form 
+        handleOnSave={handleOnSave} 
+      />
       {loading ? <Loader /> : (
         <MainContainer>
           <AvatarInput 

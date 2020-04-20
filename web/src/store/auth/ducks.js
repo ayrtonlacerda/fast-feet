@@ -32,6 +32,14 @@ export default function auth(state = initialState, action) {
         user: action.payload.user,
         error: false,
       };
+    case Types.AUTH_LOGOUT:
+      return {
+        ...state,
+        loading: false,
+        token: null,
+        user: null,
+        error: false,
+      };
     default: 
       return {
         ...state,
@@ -60,4 +68,7 @@ export const AuthActions = {
       token,
     }
   }),
+  authLogout: () => ({
+    type: Types.AUTH_LOGOUT,
+  })
 };

@@ -6,7 +6,7 @@ import { Container, ImageLogo, StatusBar } from './styles';
 
 const SignIn = () => {
   const dispatch = useDispatch();
-  const { user, error } = useSelector((state) => state.auth);
+  const { user, error, loading } = useSelector((state) => state.auth);
   const [email, setEmail] = useState('');
 
   const handleClick = useCallback(() => {
@@ -30,11 +30,12 @@ const SignIn = () => {
       <StatusBar />
       <ImageLogo />
       <Input
-        placeholder="Informe seu ID de cadastro"
+        placeholder="Informe seu email"
         handleChangeText={setEmail}
         value={email}
       />
       <Button
+        loading={loading}
         text="Entrar no sistema"
         handleClick={handleClick}
         doubleMargin={false}

@@ -2,13 +2,10 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { 
   Container,
-  Title,
   MainContainer,
   SelectContainer,
-  TitleContainer,
-  ButtonsContainer,
 } from './styles';
-import { Input, Button, Loader } from '../../components';
+import { Input, Loader, HeaderPage } from '../../components';
 import { useFormData } from '../../Hooks';
 import Endpoint from '../../services';
 
@@ -109,23 +106,11 @@ const FormRecipients = () => {
 
   return (
     <Container>
-      <TitleContainer>
-        <Title>Cadastro de Destinatário</Title>
-        <ButtonsContainer>
-          <Button 
-            iconBack 
-            text='VOLTAR' 
-            grey 
-            goBack
-          />
-          <Button
-            iconCheck
-            text='SALVAR'
-            leftMangin 
-            handleClick={handleOnSave}
-          />
-        </ButtonsContainer>
-      </TitleContainer>
+      <HeaderPage 
+        title="Cadastro de Destinatarios" 
+        form 
+        handleOnSave={handleOnSave} 
+      />
       {loading ? <Loader />: (
         <MainContainer>
           <Input 

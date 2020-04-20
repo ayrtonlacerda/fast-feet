@@ -6,6 +6,8 @@ const Endpoints = {
 
   // process
   getProcess: async (id) => api.get(`/process/${id}`),
+  putProcess: async (data) => api.put('/process', data),
+
   // problem
   getProblem: async (id) => api.get(`/problems/${id}`),
   postProblem: async (data) => api.post('/problems', data),

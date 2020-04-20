@@ -104,7 +104,7 @@ export const useValidator = () => {
               error[keyData] = 'CEP é obrigatorio';
               setError({ ...error });              
             } else if (!/\d{5}-?\d{3}/i.test(data[keyData])) {
-              error[keyData] = 'CEP invalido (obs: tem que inserir o " - ")';
+              error[keyData] = 'CEP invalido (obs: tem que ter 8 digitos)';
               setError({ ...error });
             } else if (!schema[keySchema].required) {
               delete error[keyData];

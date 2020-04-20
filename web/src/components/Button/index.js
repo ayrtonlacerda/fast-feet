@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 import { Container, TextButton } from './styles';
-import { MdAdd, MdArrowBack, MdCheck} from 'react-icons/md';
+import { MdAdd, MdArrowBack, MdCheck, MdPlayForWork} from 'react-icons/md';
 import { colors } from '../../styles';
 
 const Button = ({ 
@@ -9,6 +9,7 @@ const Button = ({
   text,
   grey,
   goBack,
+  outline,
   iconPlus,
   iconBack,
   iconCheck,
@@ -22,6 +23,7 @@ const Button = ({
       left={leftMangin} 
       grey={grey} 
       onClick={goBack ? () => history.goBack() : handleClick}
+      outline={outline}
     >
       {iconPlus && (
         <MdAdd 
@@ -50,7 +52,7 @@ const Button = ({
           }}
         />
       )}  
-      <TextButton icon={iconPlus}>{text}</TextButton>
+      <TextButton outline={outline} icon={iconPlus}>{text}</TextButton>
     </Container>
   )
 };

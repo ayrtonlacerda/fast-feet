@@ -51,7 +51,13 @@ class ProcessController {
   }
 
   async update(req, res) {
-    const { start_date, end_date, id, orderId } = req.body;
+    const {
+      start_date,
+      end_date,
+      deliverymanId,
+      orderId,
+      signature_id: sid,
+    } = req.body;
 
     const order = await Order.findByPk(orderId);
     if (!order) {
@@ -60,7 +66,7 @@ class ProcessController {
       });
     }
 
-    const deliveryman = await Deliveryman.findByPk(id);
+    const deliveryman = await Deliveryman.findByPk(deliverymanId);
     if (!deliveryman) {
       return res.status(400).json({
         mensage: 'Esse entregador não existe',
@@ -69,7 +75,7 @@ class ProcessController {
 
     const orders = await Order.findAll({
       where: {
-        deliveryman_id: id,
+        deliveryman_id: deliverymanId,
         created_at: {
           [Op.between]: [startOfDay(new Date()), endOfDay(new Date())],
         },
@@ -93,7 +99,7 @@ class ProcessController {
       const {
         product,
         recipient_id: recipientId,
-        deliveryman_id: deliverymanId,
+        deliveryman_id,
         signature_id,
         canceled_at,
         start_date: startDate,
@@ -102,7 +108,7 @@ class ProcessController {
       return res.status(200).json({
         product,
         recipient_id: recipientId,
-        deliveryman_id: deliverymanId,
+        deliveryman_id,
         signature_id,
         canceled_at,
         start_date: startDate,
@@ -110,20 +116,20 @@ class ProcessController {
       });
     }
 
-    if (end_date) {
+    if (end_date && sid) {
       const {
         product,
         recipient_id: recipientId,
-        deliveryman_id: deliverymanId,
+        deliveryman_id,
         signature_id,
         canceled_at,
         start_date: startDate,
         end_date: endDate,
-      } = await order.update({ end_date });
+      } = await order.update({ end_date, signature_id: sid });
       return res.status(200).json({
         product,
         recipient_id: recipientId,
-        deliveryman_id: deliverymanId,
+        deliveryman_id,
         signature_id,
         canceled_at,
         start_date: startDate,

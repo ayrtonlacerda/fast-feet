@@ -14,7 +14,7 @@ const ListProblems = () => {
   const [data, loading] = useFetch(Endpoint.getProblems);
   console.log({ data })
   return (
-  <Container showModal={show} h={data && data.length > 8 ? data.length : 0 }>
+  <Container showModal={show} h={data && data.length >= 8 ? data.length : 0 }>
     <Title>
       Problemas na entrega
     </Title>

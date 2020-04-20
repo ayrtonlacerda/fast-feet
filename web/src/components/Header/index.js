@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
-import { Link, withRouter, useLocation } from 'react-router-dom';
+import React, { useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { AuthActions } from '../../store/auth/ducks';
+import { Link, useLocation } from 'react-router-dom';
+import history from '../../router/history';
 import { 
   Container,
   Logo,
@@ -12,7 +15,11 @@ import {
 } from './styles';
 
 const Header = () => {
+  const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const handleClose = useCallback(() => {
+    dispatch(AuthActions.authLogout());
+  }, []);
   return (
     <Container>
       <LeftContainer>
@@ -53,7 +60,9 @@ const Header = () => {
       </LeftContainer>
       <RightContainer>
         <AdminText>Admin FastFeet</AdminText>
-        <ExitText>sair do sistema</ExitText>
+        <Link to='/' style={{ textDecoration: 'none' }}>
+          <ExitText onClick={handleClose}>sair do sistema</ExitText>
+        </Link>
       </RightContainer>
     </Container>
 )};

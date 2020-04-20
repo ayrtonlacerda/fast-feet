@@ -55,3 +55,10 @@ export const DateTitle = styled.p`
   color: ${colors.GREY};
   margin: 5px 0 0 0 ;
 `;
+
+export const Image = styled.img`
+  width: 95%;
+  height: 300px;
+  object-fit: cover;
+  margin: 15px 0 0 0 ;
+`;

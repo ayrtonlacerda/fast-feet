@@ -1,6 +1,6 @@
 import React from 'react';
 import { format } from 'date-fns';
-import { Header } from 'components';
+import { Header, Loader } from 'components';
 import { useRoute } from '@react-navigation/native';
 import { useFetch } from 'hooks';
 import Endpoint from 'services';
@@ -17,14 +17,18 @@ const Problem = () => {
     <Container>
       <Header title="Visualizar problemas" />
       <Title>{product}</Title>
-      <MainContainer>
-        {data && data.map((item) => (
-          <Card>
-            <Text big>{item.description}</Text>
-            <Text>{format(new Date(item.createdAt), 'dd/MM/yyyy')}</Text>
-          </Card>
-        ))}
-      </MainContainer>
+      {loading
+        ? <Loader big />
+        : (
+          <MainContainer>
+            {data && data.map((item) => (
+              <Card>
+                <Text big>{item.description}</Text>
+                <Text>{format(new Date(item.createdAt), 'dd/MM/yyyy')}</Text>
+              </Card>
+            ))}
+          </MainContainer>
+        )}
     </Container>
   );
 };

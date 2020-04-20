@@ -19,7 +19,6 @@ import {
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-
 const UnAuth = () => (
   <Stack.Navigator headerMode="none">
     <Stack.Screen name="SignIn" component={SignIn} />
@@ -83,7 +82,7 @@ export default ({ authenticated }) => {
   const auth = useSelector((state) => state.auth);
   return (
     <NavigationContainer>
-      {authenticated || auth.user ? <Auth /> : <UnAuth />}
+      {auth.user ? <Auth /> : <UnAuth />}
     </NavigationContainer>
   );
 };

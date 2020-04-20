@@ -1,28 +1,27 @@
 import { useState, useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 
-export const useFetch = (fetch, id, params = {}) => {
+export const useFetch = (fetch, id, refresh) => {
+  console.log({ refresh });
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await fetch(id, {
-        ...params,
-      });
+      const response = await fetch(id);
+      console.log({ response });
       setData(response.data);
     } catch (error) {
-      console.log({ ERRO_REQUEST: { fetch, params, error } });
+      console.log({ ERRO_REQUEST: { fetch, refresh, error } });
       setData(null);
     }
     setLoading(false);
-  }, [fetch, params]);
+  }, [fetch, refresh]);
 
   useEffect(() => {
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [refresh]);
 
   return [data, loading];
 };

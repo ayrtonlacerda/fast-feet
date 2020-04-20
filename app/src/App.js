@@ -13,21 +13,24 @@ const safeAreaStyle = {
 };
 const App = () => {
   const [authenticated, setAuthenticated] = useState(false);
+
   const retriveUser = useCallback(async () => {
     const response = await storage.getItem('@user_data');
-    console.log({ store, AuthActions });
     setAuthenticated(JSON.parse(response));
     store.dispath(AuthActions.authSuccess(JSON.parse(response)));
   }, []);
+
   useEffect(() => {
     retriveUser();
   }, []);
+
   store.dispatch(AuthActions.authSuccess(authenticated));
+
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <SafeAreaView style={safeAreaStyle}>
-          <Routes authenticated={authenticated || store.getState().auth.user} />
+          <Routes authenticated={store.getState().auth.user || authenticated} />
         </SafeAreaView>
       </PersistGate>
     </Provider>

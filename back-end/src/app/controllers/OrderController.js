@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import { getHours } from 'date-fns';
+import { Op } from 'sequelize';
 import { Order, Deliveryman, Recipient, File } from '../models';
 
 class OrderController {
@@ -51,8 +52,16 @@ class OrderController {
   }
 
   async index(req, res) {
+    let filter = {};
+
+    if (req.query.order) {
+      filter = {
+        product: { [Op.iLike]: `%${req.query.order}%` },
+      };
+    }
+
     const orders = await Order.findAll({
-      where: {},
+      where: filter,
       include: [
         {
           model: Recipient,
@@ -130,6 +139,7 @@ class OrderController {
     });
     const { id } = req.params;
     const { recipient_id, deliveryman_id, start_date } = req.body;
+    console.log({ body: req.body });
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({

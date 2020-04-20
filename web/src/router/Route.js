@@ -5,9 +5,8 @@ import {store} from '../store';
 
 const RouterWrapper = ({ component: Component, isPrivate, ...rest }) => {
   const auth = useSelector(state => state.auth);
-  //const { token } = auth;
-  const token = true;
-
+  const { token } = auth;
+  //const token = true;
 
   if (!token && isPrivate) {
     return <Redirect to='/' />
